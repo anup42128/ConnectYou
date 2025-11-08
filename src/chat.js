@@ -24,7 +24,7 @@ export async function renderChat(container, user) {
 
   // 2. Render the main layout
   container.innerHTML = getChatLayoutHTML();
-  createIcons({ icons }); // Initialize icons
+  // Icons will be rendered by main.js after this function completes
 
   // 3. Get DOM elements
   const userListEl = document.getElementById('user-list');
@@ -177,7 +177,7 @@ async function loadChatForUser(partnerId, chatWindowEl) {
   if (!partner) return;
 
   chatWindowEl.innerHTML = getChatWindowHTML(partner);
-  createIcons({ icons });
+  createIcons({ icons }); // Re-render icons for the new chat window content
 
   // Attach listener for the newly created back button
   const backButton = document.getElementById('back-to-sidebar-btn');
@@ -187,7 +187,7 @@ async function loadChatForUser(partnerId, chatWindowEl) {
     selectedUserId = null; // Deselect chat on mobile back
     document.querySelectorAll('.user-card').forEach(card => card.classList.remove('active'));
     chatWindowEl.innerHTML = getChatPlaceholderHTML();
-    createIcons({ icons });
+    createIcons({ icons }); // Re-render icons for the placeholder
   });
 
   const messagesContainer = document.getElementById('messages-container');
