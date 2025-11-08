@@ -2,7 +2,7 @@ import './style.css';
 import { supabase } from './src/lib/supabaseClient';
 import { renderAuth } from './src/auth';
 import { renderChat } from './src/chat';
-import { createIcons, icons } from 'lucide'; // Fixed: Added 'icons' to the import
+import { createIcons, icons } from 'lucide';
 
 const app = document.getElementById('app');
 
@@ -21,6 +21,7 @@ supabase.auth.onAuthStateChange((event, session) => {
     // User is not logged in
     renderAuth(app);
   }
-  // After rendering, create all Lucide icons
-  createIcons({ icons }); // This will now work correctly
+  // After the UI is rendered, find all icon placeholders and render them.
+  // This is the single source of truth for icon creation.
+  createIcons({ icons });
 });
