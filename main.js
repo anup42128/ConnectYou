@@ -2,7 +2,7 @@ import './style.css';
 import { supabase } from './src/lib/supabaseClient';
 import { renderAuth } from './src/auth';
 import { renderChat } from './src/chat';
-import { createIcons, icons } from 'lucide';
+import { createIcons, icons } from 'lucide'; // Fixed: Added 'icons' to the import
 
 const app = document.getElementById('app');
 
@@ -22,5 +22,5 @@ supabase.auth.onAuthStateChange((event, session) => {
     renderAuth(app);
   }
   // After rendering, create all Lucide icons
-  createIcons({ icons });
+  createIcons({ icons }); // This will now work correctly
 });
