@@ -1,5 +1,4 @@
 import { supabase } from './lib/supabaseClient';
-import { createIcons, icons } from 'lucide';
 
 export function renderAuth(container) {
   container.innerHTML = `
@@ -53,8 +52,6 @@ export function renderAuth(container) {
       </div>
     </div>
   `;
-
-  createIcons({ icons });
 
   // --- DOM Elements ---
   const loginForm = document.getElementById('login-form');
