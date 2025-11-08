@@ -1,0 +1,559 @@
+/* ---
+  GLOBAL STYLES & VARIABLES
+--- */
+:root {
+  --font-sans: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  --background: #101010;
+  --surface-1: #181818;
+  --surface-2: #212121;
+  --surface-3: #2a2a2a;
+
+  --text-primary: #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-tertiary: #737373;
+
+  --border-color: #2d2d2d;
+  --border-color-hover: #404040;
+
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  
+  --error: #ef4444;
+
+  --radius: 0.5rem;
+  --transition: all 0.2s ease-in-out;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---
+  UTILITY & HELPER CLASSES
+--- */
+.hidden {
+  display: none !important;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 1.5;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--text-tertiary);
+  border-bottom-color: var(--primary);
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-scaffold {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---
+  AUTHENTICATION VIEW
+--- */
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.auth-header {
+  text-align: center;
+}
+
+.auth-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.auth-header p {
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--surface-1);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--primary);
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-toggle {
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.auth-toggle button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.auth-toggle button:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: var(--error);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* ---
+  CHAT INTERFACE LAYOUT
+--- */
+.chat-layout {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 100vh;
+  background-color: var(--surface-1);
+}
+
+/* ---
+  SIDEBAR
+--- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  background-color: var(--background);
+  overflow: hidden;
+}
+
+.sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.sidebar-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  border-radius: var(--radius);
+}
+
+.logout-button:hover {
+  background-color: var(--surface-2);
+  color: var(--text-primary);
+}
+
+.search-container {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-wrapper .icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+}
+
+#user-search-input {
+  width: 100%;
+  padding: 0.6rem 1rem 0.6rem 2.5rem;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+#user-search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.user-list {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.user-card:hover {
+  background-color: var(--surface-2);
+}
+
+.user-card.active {
+  background-color: var(--primary);
+}
+
+.user-card .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--surface-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.user-card.active .avatar {
+  background-color: rgba(255,255,255,0.2);
+}
+
+.user-info {
+  overflow: hidden;
+}
+
+.user-info .name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-card.active .user-info .name {
+  color: white;
+}
+
+.user-info .username {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-card.active .user-info .username {
+  color: rgba(255,255,255,0.8);
+}
+
+/* ---
+  CHAT WINDOW
+--- */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.chat-placeholder {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.chat-placeholder .icon {
+  width: 4rem;
+  height: 4rem;
+  color: var(--text-tertiary);
+}
+
+.chat-placeholder h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--surface-1);
+  flex-shrink: 0;
+}
+
+.chat-header .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--surface-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.chat-header-info .name {
+  font-weight: 600;
+}
+
+.chat-header-info .username {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.messages-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 0.75rem 1rem;
+  border-radius: 1.25rem;
+  word-wrap: break-word;
+}
+
+.message-bubble.sent {
+  background-color: var(--primary);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: var(--radius);
+}
+
+.message-bubble.received {
+  background-color: var(--surface-2);
+  align-self: flex-start;
+  border-bottom-left-radius: var(--radius);
+}
+
+.message-form-container {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--surface-1);
+  flex-shrink: 0;
+}
+
+#message-form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+#message-input {
+  flex-grow: 1;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  resize: none;
+}
+
+#message-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+#message-form button {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+/* ---
+  RESPONSIVENESS
+--- */
+@media (max-width: 768px) {
+  .chat-layout {
+    grid-template-columns: 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 10;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .chat-window {
+    width: 100%;
+  }
+  
+  .chat-header {
+    gap: 0.5rem;
+  }
+
+  .back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: block !important; /* Overrides hidden utility */
+  }
+
+  .back-button .icon {
+    color: var(--text-primary);
+  }
+}
+</style>
+<dualiteAction type="file" filePath="main.js">
+import './style.css';
+import { supabase } from './src/lib/supabaseClient';
+import { renderAuth } from './src/auth';
+import { renderChat } from './src/chat';
+import { createIcons } from 'lucide';
+
+const app = document.getElementById('app');
+
+// Initial loading state
+app.innerHTML = `
+  <div class="loading-scaffold">
+    <div class="spinner"></div>
+  </div>
+`;
+
+supabase.auth.onAuthStateChange((event, session) => {
+  if (session) {
+    // User is logged in
+    renderChat(app, session.user);
+  } else {
+    // User is not logged in
+    renderAuth(app);
+  }
+  // After rendering, create all Lucide icons
+  createIcons();
+});
